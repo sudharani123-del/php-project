@@ -3,14 +3,14 @@ pipeline {
     stages{
         stage('git cloned'){
             steps{
-                git url:'https://github.com/sudharani000/php-project/edit/master/Jenkinsfile'
+                git url:'https://github.com/sudharani000/php-project/', branch: "master"
               
             }
         }
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t sudharani000/akshatnewimg6july:v1 .'
+                    sh 'docker build -t sudharani000/2febimg:v1 .'
                     sh 'docker images'
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                     sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh 'docker push sudharani000/akshatnewimg6july:v1'
+                    sh 'docker push sudharani000/2febimg:v1'
                 }
             }
         }
